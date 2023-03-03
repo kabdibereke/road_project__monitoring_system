@@ -78,7 +78,7 @@ export default function Tables() {
                     sheet="users"
                     currentTableRef={tableRef.current}
     ><Button sx={{marginTop: "50px", marginBottom: "20px"}}  variant="contained">Скачать Excel</Button></DownloadTableExcel>
-    <TableContainer component={Paper}>
+    <TableContainer component={Paper} sx={{ maxWidth: 500 }}>
       <Table sx={{ minWidth: 320 }} aria-label="customized table" ref={tableRef}>
         <TableHead>
           <TableRow>
