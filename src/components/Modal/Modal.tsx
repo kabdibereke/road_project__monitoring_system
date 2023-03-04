@@ -30,7 +30,7 @@ export default function Modal({openModal, setOpenModal}:Props ) {
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
-        <SignIn/>
+        <SignIn handleClose={handleClose}/>
       </Dialog>
     </div>
   );

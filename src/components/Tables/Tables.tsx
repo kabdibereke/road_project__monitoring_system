@@ -78,21 +78,26 @@ export default function Tables() {
                     sheet="users"
                     currentTableRef={tableRef.current}
     ><Button sx={{marginTop: "50px", marginBottom: "20px"}}  variant="contained">Скачать Excel</Button></DownloadTableExcel>
-    <TableContainer component={Paper} sx={{ maxWidth: 500 }}>
+    <TableContainer component={Paper} >
       <Table sx={{ minWidth: 320 }} aria-label="customized table" ref={tableRef}>
         <TableHead>
           <TableRow>
             <StyledTableCell>Конструктив: {pathname=='/3lot' && "3 Лотa"}
           {pathname=='/4lot' && "4 Лотa"}</StyledTableCell>
+            <StyledTableCell align="right">сторона</StyledTableCell>
             <StyledTableCell align="right">выполнено</StyledTableCell>
             <StyledTableCell align="right">всего</StyledTableCell>
             <StyledTableCell align="right">остаток</StyledTableCell>
+            <StyledTableCell align="right">фронт</StyledTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
            <StyledTableRow >
               <StyledTableCell component="th" scope="row">
-                  ЩМА (правая сторона)
+                  ЩМА 
+              </StyledTableCell>
+              <StyledTableCell align="right"> 
+                   правая 
               </StyledTableCell>
               <StyledTableCell align="right">{ <Input   initialValue={sma?.right!} types={'sma.right'} />}</StyledTableCell>
               <StyledTableCell align="right"> 
@@ -103,10 +108,17 @@ export default function Tables() {
                 {pathname=='/3lot' &&(41.944-sma?.right!).toFixed(3)}
                 {pathname=='/4lot' &&(46.014-sma?.right!).toFixed(3)}
               </StyledTableCell>
+              <StyledTableCell align="right">
+                {pathname=='/3lot' &&(kz?.right!-sma?.right!).toFixed(3)}
+                {pathname=='/4lot' &&(kz?.right!-sma?.right!).toFixed(3)}
+              </StyledTableCell>
             </StyledTableRow>
             <StyledTableRow >
               <StyledTableCell component="th" scope="row">
-                  ЩМА (левая сторона)
+                  
+              </StyledTableCell>
+              <StyledTableCell align="right"> 
+                    левая 
               </StyledTableCell>
               <StyledTableCell align="right">{ <Input   initialValue={sma?.left!} types={'sma.left'} />}</StyledTableCell>
               <StyledTableCell align="right">
@@ -117,10 +129,17 @@ export default function Tables() {
                 {pathname=='/3lot' &&(41.944-sma?.left!).toFixed(3)}
                 {pathname=='/4lot' &&(46.014-sma?.left!).toFixed(3)}
               </StyledTableCell>
+              <StyledTableCell align="right"> 
+                {pathname=='/3lot' &&(kz?.left!-sma?.left!).toFixed(3)}
+                {pathname=='/4lot' &&(kz?.left!-sma?.left!).toFixed(3)}
+              </StyledTableCell>
             </StyledTableRow>
             <StyledTableRow >
               <StyledTableCell component="th" scope="row">
-                КЗ (правая сторона)
+                КЗ 
+              </StyledTableCell>
+              <StyledTableCell align="right"> 
+              правая 
               </StyledTableCell>
               <StyledTableCell align="right">{ <Input   initialValue={kz?.right!} types={'kz.right'} />}</StyledTableCell>
               <StyledTableCell align="right">
@@ -131,10 +150,17 @@ export default function Tables() {
                 {pathname=='/3lot' &&(41.944-kz?.right!).toFixed(3)}
                 {pathname=='/4lot' &&(46.014-kz?.right!).toFixed(3)}
               </StyledTableCell>
+              <StyledTableCell align="right"> 
+                {pathname=='/3lot' &&(spcc?.right!-kz?.right!).toFixed(3)}
+                {pathname=='/4lot' &&(spcc?.right!-kz?.right!).toFixed(3)}
+              </StyledTableCell>
             </StyledTableRow>
             <StyledTableRow >
-              <StyledTableCell component="th" scope="row">
-              КЗ (левая сторона)
+              <StyledTableCell component="th" scope="row" >
+             
+              </StyledTableCell>
+              <StyledTableCell align="right"> 
+              левая 
               </StyledTableCell>
               <StyledTableCell align="right">{ <Input   initialValue={kz?.left!} types={'kz.left'} />}</StyledTableCell>
               <StyledTableCell align="right">
@@ -145,10 +171,17 @@ export default function Tables() {
                 {pathname=='/3lot' &&(41.944-kz?.left!).toFixed(3)}
                 {pathname=='/4lot' &&(46.014-kz?.left!).toFixed(3)}
               </StyledTableCell>
+              <StyledTableCell align="right"> 
+                {pathname=='/3lot' &&(spcc?.left!-kz?.left!).toFixed(3)}
+                {pathname=='/4lot' &&(spcc?.left!-kz?.left!).toFixed(3)}
+              </StyledTableCell>
             </StyledTableRow>
             <StyledTableRow >
               <StyledTableCell component="th" scope="row">
-              ЩПЗЦС (правая сторона)
+              ЩПЗЦС 
+              </StyledTableCell>
+              <StyledTableCell align="right"> 
+              правая 
               </StyledTableCell>
               <StyledTableCell align="right">
                 {<Input   initialValue={spcc?.right!} types={'spcc.right'} />}
@@ -161,10 +194,17 @@ export default function Tables() {
                 {pathname=='/3lot' &&(41.928-spcc?.right!).toFixed(3)}
                 {pathname=='/4lot' &&(46.014-spcc?.right!).toFixed(3)}
               </StyledTableCell>
+              <StyledTableCell align="right"> 
+                {pathname=='/3lot' &&(c4?.right!-spcc?.right!).toFixed(3)}
+                {pathname=='/4lot' &&(c4?.right!-spcc?.right!).toFixed(3)}
+              </StyledTableCell>
             </StyledTableRow>
             <StyledTableRow >
               <StyledTableCell component="th" scope="row">
-              ЩПЗЦС (левая сторона)
+               
+              </StyledTableCell>
+              <StyledTableCell align="right"> 
+              левая 
               </StyledTableCell>
               <StyledTableCell align="right">
                 { <Input   initialValue={spcc?.left!} types={'spcc.left'} />}
@@ -175,11 +215,19 @@ export default function Tables() {
               </StyledTableCell>
               <StyledTableCell align="right"> 
                 {pathname=='/3lot' &&(41.928-spcc?.left!).toFixed(3)}
-                {pathname=='/4lot' &&(46.014-spcc?.left!).toFixed(3)}</StyledTableCell>
+                {pathname=='/4lot' &&(46.014-spcc?.left!).toFixed(3)}
+              </StyledTableCell>
+              <StyledTableCell align="right"> 
+                {pathname=='/3lot' &&(c4?.left!-spcc?.left!).toFixed(3)}
+                {pathname=='/4lot' &&(c4?.left!-spcc?.left!).toFixed(3)}
+              </StyledTableCell>
             </StyledTableRow>
             <StyledTableRow >
               <StyledTableCell component="th" scope="row">
-              С4 (правая сторона)
+              С4 
+              </StyledTableCell>
+              <StyledTableCell align="right"> 
+              правая 
               </StyledTableCell>
               <StyledTableCell align="right">
                 { <Input   initialValue={c4?.right!} types={'c4.right'} />}
@@ -192,10 +240,17 @@ export default function Tables() {
                 {pathname=='/3lot' &&(41.928-c4?.right!).toFixed(3)}
                 {pathname=='/4lot' &&(46.014-c4?.right!).toFixed(3)}
               </StyledTableCell>
+              <StyledTableCell align="right"> 
+                {pathname=='/3lot' &&(zp?.right!-c4?.right!).toFixed(3)}
+                {pathname=='/4lot' &&(zp?.right!-c4?.right!).toFixed(3)}
+              </StyledTableCell>
             </StyledTableRow>
             <StyledTableRow >
               <StyledTableCell component="th" scope="row">
-              С4 (левая сторона)
+              
+              </StyledTableCell>
+              <StyledTableCell align="right"> 
+              левая 
               </StyledTableCell>
               <StyledTableCell align="right">
                 { <Input   initialValue={c4?.left!} types={'c4.left'} />}
@@ -208,10 +263,17 @@ export default function Tables() {
                 {pathname=='/3lot' &&(41.928-c4?.left!).toFixed(3)}
                 {pathname=='/4lot' &&(46.014-c4?.left!).toFixed(3)}
               </StyledTableCell>
+              <StyledTableCell align="right"> 
+                {pathname=='/3lot' &&(zp?.left!-c4?.left!).toFixed(3)}
+                {pathname=='/4lot' &&(zp?.left!-c4?.left!).toFixed(3)}
+              </StyledTableCell>
             </StyledTableRow>
             <StyledTableRow >
               <StyledTableCell component="th" scope="row">
-              ЗП (правая сторона)
+              ЗП 
+              </StyledTableCell>
+              <StyledTableCell align="right"> 
+              правая 
               </StyledTableCell>
               <StyledTableCell align="right">
                {<Input   initialValue={zp?.right!} types={'zp.right'} />}
@@ -224,10 +286,16 @@ export default function Tables() {
                 {pathname=='/3lot' &&(41.928-zp?.right!).toFixed(3)}
                 {pathname=='/4lot' &&(46.014-zp?.right!).toFixed(3)}
               </StyledTableCell>
-            </StyledTableRow>
-            <StyledTableRow >
+              <StyledTableCell align="right"> 
+                -
+              </StyledTableCell>
+              </StyledTableRow>
+              <StyledTableRow >
               <StyledTableCell component="th" scope="row">
-              ЗП (левая сторона)
+             
+              </StyledTableCell>
+              <StyledTableCell align="right"> 
+              левая 
               </StyledTableCell>
               <StyledTableCell align="right">
                 {<Input   initialValue={zp?.left!} types={'zp.left'} />}</StyledTableCell>
@@ -238,6 +306,9 @@ export default function Tables() {
               <StyledTableCell align="right"> 
                 {pathname=='/3lot' &&(41.928-zp?.left!).toFixed(3)}
                 {pathname=='/4lot' &&(46.014-zp?.left!).toFixed(3)}
+              </StyledTableCell>
+              <StyledTableCell align="right"> 
+                -
               </StyledTableCell>
             </StyledTableRow>
             

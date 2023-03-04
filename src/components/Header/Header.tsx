@@ -11,12 +11,16 @@ import Menu from '@mui/material/Menu';
 import Modal from '../Modal/Modal'
 import { Link } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
+import { useAuthState,useSignOut  } from 'react-firebase-hooks/auth';
+import { auth } from '../../firebase';
+import { toast } from 'react-toastify';
 const ITEM_HEIGHT = 48;
 export default function Header() {
     const [openModal, setOpenModal] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const {pathname} = useLocation()
-
+  const [user] = useAuthState(auth);
+  const [signOut]  = useSignOut(auth);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -47,7 +51,16 @@ export default function Header() {
           {pathname=='/3lot' && "3 Лот"}
           {pathname=='/4lot' && "4 Лот"}
           </Typography>
-          <Button color="inherit"  onClick={()=> setOpenModal(true)} >Admin Mode</Button>
+         {!user ? <Button color="inherit"  onClick={()=> setOpenModal(true)} >Admin Mode</Button> : 
+         <Button color="inherit"  onClick={async () => {
+          const success = await signOut();
+          if (success) {
+           toast.info('Успешно', {
+            autoClose:1000
+           })
+          }
+        }}>Выйти</Button>}
+        
         </Toolbar>
       </AppBar>
     </Box>

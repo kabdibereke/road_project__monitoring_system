@@ -8,7 +8,9 @@ import { db } from '../../firebase'
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useLocation } from 'react-router-dom';
 import { auth } from '../../firebase';
-
+import CheckIcon from '@mui/icons-material/Check';
+import CloseIcon from '@mui/icons-material/Close';
+import TextField from '@mui/material/TextField';
 interface Props extends InputProps{
   
     initialValue:number
@@ -173,9 +175,16 @@ const Input = ({initialValue, types, ...props}:Props ) => {
    <>
    
    {isActive ? <div className={styles.input_wrapper}>
-    <input  type="text" value={text}  {...props} onChange={(e)=> setText(+e.target.value)}  onKeyDown={handleNumberKeyDown}/>
-    <div className={styles.input_close} onClick={editText}>✓</div>
-    <div className={styles.input_close} onClick={()=>setIsActive(false)}>X</div>
+   <TextField sx={{width:"100px"}}
+    hiddenLabel
+    id="filled-hidden-label-small"
+    defaultValue={text}
+    variant="filled"
+    size="small"
+    value={text}   onChange={(e)=> setText(+e.target.value)}  onKeyDown={handleNumberKeyDown}
+    />
+    <CheckIcon className={styles.input_close} onClick={editText}/>
+    <CloseIcon className={styles.input_close} onClick={()=>setIsActive(false)}/>
    </div>:<div className={styles.text} onClick={handleInput}>{initialValue}</div> }
    
    </>

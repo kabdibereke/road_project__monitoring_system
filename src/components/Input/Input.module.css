@@ -1,6 +1,7 @@
 .input_wrapper {
     display: flex;
     justify-content: end;
+    align-items: center;
     gap: 10px;
 }
 

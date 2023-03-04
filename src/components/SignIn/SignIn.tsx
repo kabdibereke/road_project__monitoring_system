@@ -14,48 +14,65 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
 import { auth } from '../../firebase';
-function Copyright(props: any) {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
+import CloseIcon from '@mui/icons-material/Close';
+import { toast } from 'react-toastify';
+import { AuthError } from 'firebase/auth';
+interface Props {
+  handleClose: () => void
 }
 
 const theme = createTheme();
 
-export default function SignIn() {
+export default function SignIn({handleClose}:Props) {
+  const [email, setEmail]= React.useState('')
+  const [password, setPassword]= React.useState('')
   const [
     signInWithEmailAndPassword,
     user,
     loading,
     error,
   ] = useSignInWithEmailAndPassword(auth);
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    signInWithEmailAndPassword(data.get('email') as string, data.get('password') as string)
-    
+    await signInWithEmailAndPassword(email, password)
   };
 
+  React.useEffect(()=> {
+    if(error) {
+      toast.error("Неправльный логин и/или пароль", {
+        autoClose: 1000,
+      })
+    }
+  },[error])
+
+  React.useEffect(()=> {
+    if(user) {
+      handleClose()
+    }
+  },[user])
 
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
+       
         <CssBaseline />
         <Box
           sx={{
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
+            position: 'realtive',
+            marginTop: "20px"
           }}
         >
-          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+          <CloseIcon  onClick={handleClose} sx={{
+            width:"20px",
+            cursor:'pointer',
+            position: 'absolute',
+            right:'20px',
+           
+          }}/>
+          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: '20px' }}>
             <TextField
               margin="normal"
               required
@@ -65,6 +82,7 @@ export default function SignIn() {
               name="email"
               autoComplete="email"
               autoFocus
+              onChange={(e)=>setEmail(e.target.value)}
             />
             <TextField
               margin="normal"
@@ -75,6 +93,7 @@ export default function SignIn() {
               type="password"
               id="password"
               autoComplete="current-password"
+              onChange={(e)=>setPassword(e.target.value)}
             />
 
             <Button
